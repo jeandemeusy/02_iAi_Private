@@ -1,0 +1,8 @@
+{
+  "pathColor": "#F5EE57",
+  "wallColor": "#426AA1",
+  "drawColor": "#6FD14A",
+  "size": 630,
+  "off": 10,
+  "generatedMazesDir": "./exportedMazes/"
+}
