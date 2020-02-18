@@ -13,5 +13,6 @@
 *.ipynb
 
 # Files
+**.DS_Store
 
 # Package
