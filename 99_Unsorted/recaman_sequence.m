@@ -14,11 +14,10 @@ clear;
 clc;
 
 %% Variable
-n = 33; % Number of terms in the sequence
-div = 20; % Number of step to compose a half-circle
-record = 1;
+n = 100; % Number of terms in the sequence
+div = 5; % Number of step to compose a half-circle
+record = 0;
 A = zeros(1,n);
-
 
 %% Algorithm to create the sequence
 for k = 1:n-1 

@@ -14,13 +14,10 @@ clear;
 clc;
 
 %% Parameters
-remove_background = false;  % Works only if input background is white
-inner_steps = 100;           % Decimation for the points inside the image
-border_step = 100;           % Decimation for the points on the border
-sensitivity = sqrt(2);      % Sensitivity of the border detection
+load("..assets/data.mat");
 
 %% Variable
-img = imread("../assets/gorilla_image.jpg");
+img = img_set{1};
 gray = rgb2gray(img);
 bin = get_bin_image(gray);
 
@@ -32,7 +29,7 @@ G = img(:,:,2);
 B = img(:,:,3);
 
 %% Code
-PL = get_point_list(gray,sensitivity,inner_steps,border_step);
+PL = get_point_list(gray,sensitivity,inner_steps,border_num);
 mesh = delaunay(PL);
 N = length(mesh);
 
@@ -47,8 +44,10 @@ for idx = 1:N
     outG(in) = mean(G(in));
     outB(in) = mean(B(in));
     
-    clc;
-    display(['Tri. # ' num2str(idx) ' / ' num2str(N)]);
+    if (~mod(idx,100) || idx==N)
+        clc;
+        display(['Tri. # ' num2str(idx) ' / ' num2str(N)]);
+    end
 end
 
 if (remove_background)
@@ -65,7 +64,7 @@ subplot(1,2,1);     imshow(img,[]);
 subplot(1,2,2);     imshow(out,[]);
 
 %% Funtions
-function [list] = get_point_list(img,sensitivity,step,border_step)
+function [list] = get_point_list(img,sensitivity,step,border_num)
 stats = regionprops(edge(img,'Canny',[],sensitivity),'PixelList');
 
 list = [];
@@ -74,17 +73,17 @@ for idx = 1:length(stats)
 end
 
 list = list(1:step:end,:);
-list = [list; get_border_point_list(img,border_step)];
+list = [list; get_border_point_list(img,border_num)];
 end
-function [list] = get_border_point_list(img,step)
-x_num = numel(1:step:size(img,2));
-y_num = numel(1:step:size(img,1));
+function [list] = get_border_point_list(img,num_xy)
+x_num = num_xy(1);
+y_num = num_xy(2);
 
 list = [
-    [(1:step:size(img,2))',     zeros(x_num,1)];
-    [(1:step:size(img,2))',     ones(x_num,1)*size(img,1)];
-    [zeros(y_num,1),            (1:step:size(img,1))'];
-    [ones(y_num,1)*size(img,2), (1:step:size(img,1))']
+    [linspace(1,size(img,2),x_num)',     zeros(x_num,1)];
+    [linspace(1,size(img,2),x_num)',     ones(x_num,1)*size(img,1)];
+    [zeros(y_num,1),            linspace(1,size(img,1),y_num)'];
+    [ones(y_num,1)*size(img,2), linspace(1,size(img,1),y_num)']
     ];
 end
 function [bin] = get_bin_image(img)
