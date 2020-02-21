@@ -1,4 +1,3 @@
-import ezdxf
 from os import path, mkdir
 
 class File():
@@ -18,20 +17,3 @@ class File():
             mkdir(folder)
 
         return DXF_File('/'.join(name))
-
-
-class DXF_File(File):
-    def __init__(self,path):
-        super().__init__(path)
-
-    def fill_DXF(self, pts):
-        doc = ezdxf.new(dxfversion = 'R2010')
-        msp = doc.modelspace()
-
-        for k in range(0,len(pts)):
-            p = (pts[k,0], pts[k,1])
-            q = (pts[k-1,0], pts[k-1,1])
-
-            msp.add_line(p,q)
-
-        doc.saveas(self.path)

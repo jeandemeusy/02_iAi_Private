@@ -86,8 +86,6 @@ class Line:
         self.p = self.p + p
         self.q = self.q + p
 
-
-
 def rotate(p0, list, angle):
     assert(isinstance(p0,Point))
     for x in range(0,len(list)):
