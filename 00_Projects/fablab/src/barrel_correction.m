@@ -17,9 +17,10 @@ clear;
 clc;
 
 %% Variables
-k1 = -0.00925;
+k1 = -0.00925; % see https://www.opticallimits.com/
+r_u_model = @(r,k) r + k*r.^3; % http://www.imatest.com/docs/distortion-methods-and-modules/
+
 img_num = 2;
-r_u_model = @(r,k) r + k*r.^3;
 
 %% Input
 load("../assets/data.mat");
