@@ -1,9 +1,9 @@
 %{
 barrel_correction.m--
 
-Syntax: 
+Syntax:
 
-e.g.,   
+e.g.,
 
 Developed in Matlab 9.7.0.1296695 (R2019b) Update 4 on PCWIN64
 
@@ -55,4 +55,3 @@ img_interp = interp2(x,y,I,x_u,y_u);
 imshowpair(img_interp,double(I));
 
 %% Functions
-
