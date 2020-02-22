@@ -11,5 +11,5 @@ Tested on Python 3.6
 
 ## Run
 ```console
-python3 barrel_correction.py
+> python3 barrel_correction.py
 ```
