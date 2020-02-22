@@ -16,8 +16,8 @@ This [website](www.opticallimits.com) makes available the coefficient k<sub>1</s
 
 ## Creation of the x and y mapping arrays
 This algorithm uses the 1st distortion model.
-Let x' = x-w/2 and y' = y-h/2
 
+Let x' = x-w/2 and y' = y-h/2:
 - r<sub>d</sub> = (x'<sup>2</sup> + y'<sup>2</sup>)<sup>.5</sup>
 - &theta; = tan<sup>-1</sup>(y/x)
 - r<sub>u</sub> = r<sub>d</sub> (1 + k<sub>1</sub>r<sub>d</sub><sup>2</sup>)
