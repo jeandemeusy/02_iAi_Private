@@ -14,10 +14,10 @@ clear;
 clc;
 
 %% Parameters
-load("..assets/data.mat");
+load("../assets/data.mat");
 
 %% Variable
-img = img_set{1};
+img = img_set{8};
 gray = rgb2gray(img);
 bin = get_bin_image(gray);
 
