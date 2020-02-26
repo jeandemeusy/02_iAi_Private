@@ -1,4 +1,4 @@
-# READ_ME
+# Barrel correction
 Tool for correcting the barrel distortion on images.
 
 Tested on Python 3.6
