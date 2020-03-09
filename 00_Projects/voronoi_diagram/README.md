@@ -1,9 +1,10 @@
-# Barrel correction
-Tool for correcting the barrel distortion on images.
+# Voronoi diagram
+
+Fun playing with point set and Voronoi diagram
 
 Tested on Python 3.6
 
-## Librairies
+## Libraries
 ```console
 > pip install numpy==1.16.2
 > pip install opencv-python==4.2.0.32
@@ -11,5 +12,4 @@ Tested on Python 3.6
 
 ## Run
 ```console
-> python3 barrel_correction.py
-```
+> python3 voronoi.py
