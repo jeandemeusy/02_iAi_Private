@@ -5,25 +5,29 @@ import math
 from geometry import Point
 from image import Image
 
-img_size = [600,800,3]
+def index_to_color(index, range):
+    base_color = index/range
+    return [base_color, 0, 1-base_color]
+
+H = 200
+W = 500
 N = 10;
 
 pts_set = []
-[pts_set.append(Point.random(0,img_size[1]-1,0,img_size[0]-1)) for _ in range(0,N)]
+[pts_set.append(Point.random(0, W-1, 0, H-1)) for _ in range(0, N)]
 
+img = Image(data = np.ones([H, W, 3]), mode='color')
 
-img = Image(data = np.zeros(img_size),mode='color')
+dists = np.zeros((len(pts_set), 1))
+
+for l in range(0, H):
+    for c in range(0, W):
+        for i in range(0, N):
+            dists[i] = Point(c, l).dist(pts_set[i], type='euclidean')
+
+        img.data[l, c] = index_to_color(np.argmin(dists), N)
 
 for pt in pts_set:
-    img.data = cv.circle(img.data, (pt.x,pt.y), 4, (.85,.85,.85), -1)
-
-dists = np.zeros((len(pts_set),1))
-
-for l in range(0,img_size[0]):
-    for c in range(0,img_size[1]):
-        p = Point(c,l)
-        for i in range(0,len(pts_set)):
-            dists[i] = p.dist(pts_set[i],type = 'euclidean')
-        img.data.itemset((l,c,2),np.argmin(dists)/len(pts_set))
+    img.data = cv.circle(img.data, (pt.x, pt.y), 1, (.85, .85, .85), -1)
 
 img.show()

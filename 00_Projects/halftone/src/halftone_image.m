@@ -20,7 +20,7 @@ clc;
 load("../assets/data.mat");
 
 %% Algorithm
-halftone(img_set{6},5,5,'k');
+halftone(img_set{6},3,3,'k');
 
 %% Display
 
