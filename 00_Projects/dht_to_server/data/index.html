@@ -1,0 +1,198 @@
+<!DOCTYPE HTML><html>
+<!-- Rui Santos - Complete project details at https://RandomNerdTutorials.com
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software. -->
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <style>
+    body {
+      min-width: 310px;
+    	max-width: 800px;
+    	height: 400px;
+      margin: 0 auto;
+    }
+    h2 {
+      font-family: Arial;
+      font-size: 2.5rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h2>DHT11 Weather Station</h2>
+  <div id="chart-temperature" class="container"></div>
+  <div id="chart-humidity" class="container"></div>
+</body>
+<script>
+
+
+var chartT = new Highcharts.Chart({
+  chart:{
+    renderTo:'chart-temperature',
+    zoomType: 'x',
+    panning: true,
+    panKey: 'shift'
+  },
+  title: {
+    text: 'Temperature'
+  },
+  series: [{
+    type: 'area',
+    showInLegend: false,
+    name: 'Temperature',
+    data: []
+  }],
+  tooltip: {
+    valueSuffix: 'C'
+  },
+  plotOptions: {
+    area: {
+      fillColor: {
+        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+        stops: [
+          [0, Highcharts.getOptions().colors[3]],
+          [1, Highcharts.color(Highcharts.getOptions().colors[3]).setOpacity(0).get('rgba')]
+        ]
+      },
+      marker: {
+        enabled: false
+      },
+      lineWidth: 1,
+      states: {
+        hover: {
+          lineWidth: 2
+        }
+      },
+      threshold: null
+    },
+    line: {
+      lineWidth: 1,
+      marker: {
+        enabled: false
+      },
+      shadow: false,
+      states: {
+        hover: {
+          lineWidth: 1
+        }
+      },
+      threshold: null
+    },
+    series: {
+      color: Highcharts.getOptions().colors[3]
+    }
+  },
+
+  xAxis: {
+    type: 'datetime',
+    dateTimeLabelFormats: { second: '%e. %b %H:%M' }
+  },
+  yAxis: {
+    title: null,
+    labels: {format: ' {value}C'},
+    max: 50,
+    min: 0
+  },
+  credits: { enabled: false },
+});
+setInterval(function ( ) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var x = (new Date()).getTime(), y = parseFloat(this.responseText);
+      chartT.series[0].addPoint([x, y]);
+    }
+  };
+  xhttp.open("GET", "/temperature", true);
+  xhttp.send();
+}, 1000 ) ;
+
+
+
+var chartH = new Highcharts.Chart({
+  chart:{
+    renderTo:'chart-humidity',
+    zoomType: 'x',
+    panning: true,
+    panKey: 'shift'
+  },
+  title: {
+    text: 'Humidity'
+  },
+  series: [{
+    type: 'area',
+    showInLegend: false,
+    name: 'Humidity',
+    data: []
+  }],
+  tooltip: {
+    valueSuffix: '%'
+  },
+  plotOptions: {
+    area: {
+      fillColor: {
+        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+        stops: [
+          [0, Highcharts.getOptions().colors[0]],
+          [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+        ]
+      },
+      marker: {
+        enabled: false
+      },
+      lineWidth: 1,
+      states: {
+        hover: {
+          lineWidth: 2
+        }
+      },
+      threshold: null
+    },
+    line: {
+      lineWidth: 1,
+      marker: {
+        enabled: false
+      },
+      shadow: false,
+      states: {
+        hover: {
+          lineWidth: 1
+        }
+      },
+      threshold: null
+    },
+    series: {
+      color: Highcharts.getOptions().colors[0]
+    }
+  },
+
+  xAxis: {
+    type: 'datetime',
+    dateTimeLabelFormats: { second: '%e. %b %H:%M' }
+  },
+  yAxis: {
+    title: null,
+    labels: {format: ' {value}%'},
+    max: 100,
+    min: 0
+  },
+  credits: { enabled: false },
+});
+setInterval(function ( ) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var x = (new Date()).getTime(), y = parseFloat(this.responseText);
+      chartH.series[0].addPoint([x, y]);
+    }
+  };
+  xhttp.open("GET", "/humidity", true);
+  xhttp.send();
+}, 1000 ) ;
+
+</script>
+</html>
