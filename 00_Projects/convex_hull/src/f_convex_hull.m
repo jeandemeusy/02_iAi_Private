@@ -1,4 +1,4 @@
-function [PoB] = FconvexHull(x,y,disp,pauseTime)
+function [PoB] = f_convex_hull(x,y,disp,pauseTime)
 if nargin == 2
     disp = false;
 end

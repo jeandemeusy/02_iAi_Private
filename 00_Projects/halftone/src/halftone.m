@@ -38,6 +38,7 @@ else
     midpoints_y = [block_size/2:block_size:m];
     midpoints_x = [block_size/2:block_size:n];
     h=figure;
+
     for i=1:length(midpoints_x)
         for j=1:length(midpoints_y)
             circle(midpoints_x(i), midpoints_y(j), I2r(j,i), color);
@@ -45,5 +46,10 @@ else
         end
     end
     axis equal
+    %set(gca,'visible','off')
+    set(gca,'xtick',[])
+    set(gca,'ytick',[])
+    set(gca,'color',[1 1 1])
+
 end
 end
